@@ -20,6 +20,6 @@ public class Hinhtron {
         double cv = 2 * PI * banKinh;
         double dt = banKinh * PI * banKinh;
         System.out.printf("Chu vi hinh tron: %.2f\n",cv);
-        System.out.printf("Dien tich hình tron: %.2f\n",dt);
+        System.out.printf("Dien tich hinh tron: %.2f\n",dt);
     }
 }
