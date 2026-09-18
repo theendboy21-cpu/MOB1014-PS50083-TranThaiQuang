@@ -10,6 +10,8 @@ package Bai1_HelloJava;
  */
 public class HelloJava {
     public static void main(String[] args) {
+        System.out.println("Hello Java");
         System.out.print("Ho ten: Tran Thai Quang; MSSV: PS500833");
+        
     }
 }
