@@ -18,7 +18,7 @@ public class MayTinh {
         System.out.print("Nhap a:  ");
         a = sc.nextDouble();
         System.out.print("Nhap b:  ");
-        b = sc.nextDouble();
+        b = sc.nextDouble();17
         System.out.print("Nhap phep toan: ");
         op = sc.next().charAt(0);
         
