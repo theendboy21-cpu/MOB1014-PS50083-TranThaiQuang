@@ -2,120 +2,129 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package com.fpoly.assignmentcom108;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
-/**
- *
- * @author Lenovo
- */
 public class QuanLySanPham {
+    static ArrayList<SanPham> danhSachSP = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
 
-    private final ArrayList<SanPham> ds = new ArrayList<>();
+    public static void main(String[] args) {
+        int chon;
+        do {
+            System.out.println("\n--- MENU QUAN LY SAN PHAM ---");
+            System.out.println("1. Nhap thong tin san pham");
+            System.out.println("2. Hien thi thong tin san pham");
+            System.out.println("3. Cap nhat thong tin san pham");
+            System.out.println("4. Tim kiem san pham");
+            System.out.println("5. Xoa san pham trong danh sach");
+            System.out.println("6. Sap xep danh sach san pham theo ten");
+            System.out.println("0. Thoat");
+            System.out.print("Chon chuc nang: ");
+            chon = sc.nextInt();
+            sc.nextLine(); // Xóa bộ nhớ đệm sau khi nhập số
 
-    //Tim theo ma
-    public int timKiem(String ma) {
-        for (int i = 0; i < ds.size(); i++) {
-            if (ds.get(i).getMaSP().equalsIgnoreCase(ma)) {
-                return i;
+            switch (chon) {
+                case 1: nhapSP(); break;
+                case 2: hienThiSP(); break;
+                case 3: capNhatSP(); break;
+                case 4: timKiemSP(); break;
+                case 5: xoaSP(); break;
+                case 6: sapXepTheoTen(); break;
+                case 0: System.out.println("Da thoat chương trinh."); break;
+                default: System.out.println("Chuc nang không hop le!");
+            }
+        } while (chon != 0);
+    }
+
+    // Y1, Y9: Nhập & Đa hình
+    public static void nhapSP() {
+        System.out.print("Chon loai SP (1 - Dien tu, 2 - Tieu dung): ");
+        int loai = sc.nextInt();
+        sc.nextLine();
+        
+        SanPham sp;
+        if (loai == 1) {
+            sp = new SanPhamDienTu();
+        } else if (loai == 2) {
+            sp = new SanPhamTieuDung();
+        } else {
+            System.out.println("Loai khong hop le!");
+            return;
+        }
+        
+        sp.Nhap(sc); 
+        danhSachSP.add(sp);
+        System.out.println("Them san pham thanh cong!");
+    }
+
+    // Y2: Hiển thị
+    public static void hienThiSP() {
+        if (danhSachSP.isEmpty()) {
+            System.out.println("Danh sach trong!");
+            return;
+        }
+        System.out.println("\n--- DANH SACH SAN PHAM ---");
+        for (SanPham sp : danhSachSP) {
+            sp.Xuat(); 
+        }
+    }
+
+    // Y4: Cập nhật
+    public static void capNhatSP() {
+        System.out.print("Nhap ma san pham can cap nhat: ");
+        String ma = sc.nextLine();
+        for (SanPham sp : danhSachSP) {
+            if (sp.getMaSP().equalsIgnoreCase(ma)) {
+                System.out.println("Nhap thong tin moi cho san pham nay:");
+                sp.Nhap(sc);
+                System.out.println("Cap nhat thanh cong!");
+                return;
             }
         }
-        return -1;
+        System.out.println("Khong tim thay san pham co ma: " + ma);
     }
 
-    // Them san pham
-    public void them(Scanner sc) {
-        SanPham sp = new SanPham();
-        sp.Nhap(sc);
-        if (timKiem(sp.getMaSP()) != -1) {
-            System.out.println("Ma " + sp.getMaSP() + " da ton tai -> Khong them!");
-            return;
+    // Y6: Tìm kiếm
+    public static void timKiemSP() {
+        System.out.print("Nhap ma san pham can tim: ");
+        String ma = sc.nextLine();
+        for (SanPham sp : danhSachSP) {
+            if (sp.getMaSP().equalsIgnoreCase(ma)) {
+                sp.Xuat();
+                return;
+            }
         }
-        ds.add(sp);
-        System.out.println("Da them " + sp.getMaSP());
+        System.out.println("Khong tim thay san pham!");
     }
 
-    // Them san pham tu constructor
-    public boolean them(SanPham sp) {
-        if (timKiem(sp.getMaSP()) != -1) {
-            System.out.println("Ma " + sp.getMaSP() + " da ton tai!");
-            return false;
+    // Y7: Xóa
+    public static void xoaSP() {
+        System.out.print("Nhap ma san pham can xoa: ");
+        String ma = sc.nextLine();
+        for (int i = 0; i < danhSachSP.size(); i++) {
+            if (danhSachSP.get(i).getMaSP().equalsIgnoreCase(ma)) {
+                danhSachSP.remove(i);
+                System.out.println("Da xoa san pham!");
+                return;
+            }
         }
-        ds.add(sp);
-        return true;
+        System.out.println("Khong tim thay san pham!");
     }
 
-    // Cap nhat
-    public void sua(Scanner sc) {
-        System.out.print("Nhap ma can sua: ");
-        int i = timKiem(sc.nextLine().trim());
-        if (i == -1) {
-            System.out.println("Khong tim thay!");
-            return;
-        }
-        ds.get(i).capNhat(sc);
+    // Y8: Sắp xếp
+    public static void sapXepTheoTen() {
+        Collections.sort(danhSachSP, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham sp1, SanPham sp2) {
+                return sp1.getTenSP().compareToIgnoreCase(sp2.getTenSP());
+            }
+        });
+        System.out.println("Đa sap xep danh sach theo ten (A-Z). Chon 2 de xem.");
     }
-
-    // Xoa
-    public void xoa(Scanner sc) {
-        System.out.print("Nhap ma can xoa: ");
-        int i = timKiem(sc.nextLine().trim());
-        if (i == -1) {
-            System.out.println("Khong tim thay!");
-            return;
-        }
-        System.out.print("Xac nhan xoa " + ds.get(i).getMaSP() + "? (y/n): ");
-        if (sc.nextLine().trim().equalsIgnoreCase("y")) {
-            System.out.println("Da xoa " + ds.remove(i).getMaSP());
-        } else {
-            System.out.println("Huy.");
-        }
-    }
-
-    // Xap xep a den z
-    public void sapXepTheoTen() {
-        if (ds.size() < 2) {
-            System.out.println("Chua du 2 san pham de sap xep.");
-            return;
-        }
-        ds.sort(Comparator.comparing(SanPham::getTenSP, String.CASE_INSENSITIVE_ORDER));
-        System.out.println("Da sap xep theo ten.");
-    }
-
-    //In danh sach
-    public void hienThi() {
-        if (ds.isEmpty()) {
-            System.out.println("Danh sach rong!");
-            return;
-        }
-        System.out.println("+----------+------------------------+----------------+--------+------------------+");
-        System.out.printf("| %-8s | %-22s | %14s | %6s | %16s |%n",
-                "MaSP", "TenSP", "DonGia", "SL", "ThanhTien");
-        System.out.println("+----------+------------------------+----------------+--------+------------------+");
-        double tong = 0;
-        for (SanPham sp : ds) {
-            sp.Xuat();
-            tong += sp.thanhTien();
-        }
-        System.out.println("+----------+------------------------+----------------+--------+------------------+");
-        System.out.printf("So luong loai SP: %d | Tong gia tri kho: %.0f%n", ds.size(), tong);
-    }
-
-    // Tim menu
-    public void timKiemMenu(Scanner sc) {
-        System.out.print("Nhap ma can tim: ");
-        int i = timKiem(sc.nextLine().trim());
-        if (i == -1) {
-            System.out.println("Khong tim thay san pham nao.");
-            return;
-        }
-        System.out.println("Tim thay:");
-        System.out.printf("| %-8s | %-22s | %14s | %6s | %16s |%n",
-                "MaSP", "TenSP", "DonGia", "SL", "ThanhTien");
-        ds.get(i).Xuat();
-    }
-
 }
