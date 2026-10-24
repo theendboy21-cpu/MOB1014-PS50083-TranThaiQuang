@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fpoly.assignmentcom108;
+
+package com.fpoly.asmcom108;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,9 +26,9 @@ public class QuanLySanPham {
         // 5 Sản phẩm tiêu dùng 
         danhSachSP.add(new SanPhamTieuDung("SP006", "Nuoc mam Nam Ngu", 45000, 100, 0.0, "12 Thang 2026"));
         danhSachSP.add(new SanPhamTieuDung("SP007", "Dau an Tuong An", 60000, 80, 0.05, "05 Thang 2025"));
-        danhSachSP.add(new SanPhamTieuDung("SP008", "Gao ST25", 180000, 40, 0.1, "01/2025"));
-        danhSachSP.add(new SanPhamTieuDung("SP009", "Mi Hao Hao", 110000, 200, 0.0, "08/2025"));
-        danhSachSP.add(new SanPhamTieuDung("SP010", "Sua tuoi TH True Milk", 350000, 30, 0.15, "10/2024"));
+        danhSachSP.add(new SanPhamTieuDung("SP008", "Gao ST25", 180000, 40, 0.1, "01 Thang 2025"));
+        danhSachSP.add(new SanPhamTieuDung("SP009", "Mi Hao Hao", 110000, 200, 0.0, "08 Thang 2025"));
+        danhSachSP.add(new SanPhamTieuDung("SP010", "Sua tuoi TH True Milk", 350000, 30, 0.15, "10 Thang 2024"));
     }
     
     public static void main(String[] args) {
@@ -106,7 +107,7 @@ public class QuanLySanPham {
         System.out.println("\n--- DANH SACH SAN PHAM ---");
         for (SanPham sp : danhSachSP) {
             sp.Xuat();
-            System.out.println(); // Thêm dòng trống để dễ nhìn
+            System.out.println(); 
         }
     }
 
