@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package com.fpoly.assignmentcom108;
 
 import java.util.ArrayList;
@@ -11,9 +10,26 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class QuanLySanPham {
+
     static ArrayList<SanPham> danhSachSP = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
+    
+    static {
+        // 5 Sản phẩm điện tử
+        danhSachSP.add(new SanPhamDienTu("SP001", "Laptop Dell", 15000000, 5, "12 Thang"));
+        danhSachSP.add(new SanPhamDienTu("SP002", "Dien thoai iPhone", 20000000, 10, "12 Thang"));
+        danhSachSP.add(new SanPhamDienTu("SP003", "Tivi Sony", 12000000, 8, "24 Thang"));
+        danhSachSP.add(new SanPhamDienTu("SP004", "May giat LG", 9000000, 4, "24 Thang"));
+        danhSachSP.add(new SanPhamDienTu("SP005", "Tu lanh Panasonic", 11000000, 6, "12 Thang"));
 
+        // 5 Sản phẩm tiêu dùng 
+        danhSachSP.add(new SanPhamTieuDung("SP006", "Nuoc mam Nam Ngu", 45000, 100, 0.0, "12 Thang 2026"));
+        danhSachSP.add(new SanPhamTieuDung("SP007", "Dau an Tuong An", 60000, 80, 0.05, "05 Thang 2025"));
+        danhSachSP.add(new SanPhamTieuDung("SP008", "Gao ST25", 180000, 40, 0.1, "01/2025"));
+        danhSachSP.add(new SanPhamTieuDung("SP009", "Mi Hao Hao", 110000, 200, 0.0, "08/2025"));
+        danhSachSP.add(new SanPhamTieuDung("SP010", "Sua tuoi TH True Milk", 350000, 30, 0.15, "10/2024"));
+    }
+    
     public static void main(String[] args) {
         int chon;
         do {
@@ -30,14 +46,29 @@ public class QuanLySanPham {
             sc.nextLine(); // Xóa bộ nhớ đệm sau khi nhập số
 
             switch (chon) {
-                case 1: nhapSP(); break;
-                case 2: hienThiSP(); break;
-                case 3: capNhatSP(); break;
-                case 4: timKiemSP(); break;
-                case 5: xoaSP(); break;
-                case 6: sapXepTheoTen(); break;
-                case 0: System.out.println("Da thoat chương trinh."); break;
-                default: System.out.println("Chuc nang không hop le!");
+                case 1:
+                    nhapSP();
+                    break;
+                case 2:
+                    hienThiSP();
+                    break;
+                case 3:
+                    capNhatSP();
+                    break;
+                case 4:
+                    timKiemSP();
+                    break;
+                case 5:
+                    xoaSP();
+                    break;
+                case 6:
+                    sapXepTheoTen();
+                    break;
+                case 0:
+                    System.out.println("Da thoat chương trinh.");
+                    break;
+                default:
+                    System.out.println("Chuc nang không hop le!");
             }
         } while (chon != 0);
     }
@@ -47,18 +78,21 @@ public class QuanLySanPham {
         System.out.print("Chon loai SP (1 - Dien tu, 2 - Tieu dung): ");
         int loai = sc.nextInt();
         sc.nextLine();
-        
+
         SanPham sp;
-        if (loai == 1) {
-            sp = new SanPhamDienTu();
-        } else if (loai == 2) {
-            sp = new SanPhamTieuDung();
-        } else {
-            System.out.println("Loai khong hop le!");
-            return;
+        switch (loai) {
+            case 1:
+                sp = new SanPhamDienTu();
+                break;
+            case 2:
+                sp = new SanPhamTieuDung();
+                break;
+            default:
+                System.out.println("Loai khong hop le!");
+                return;
         }
-        
-        sp.Nhap(sc); 
+
+        sp.Nhap(sc);
         danhSachSP.add(sp);
         System.out.println("Them san pham thanh cong!");
     }
@@ -71,7 +105,8 @@ public class QuanLySanPham {
         }
         System.out.println("\n--- DANH SACH SAN PHAM ---");
         for (SanPham sp : danhSachSP) {
-            sp.Xuat(); 
+            sp.Xuat();
+            System.out.println(); // Thêm dòng trống để dễ nhìn
         }
     }
 
@@ -97,6 +132,7 @@ public class QuanLySanPham {
         for (SanPham sp : danhSachSP) {
             if (sp.getMaSP().equalsIgnoreCase(ma)) {
                 sp.Xuat();
+                System.out.println();
                 return;
             }
         }
@@ -125,6 +161,6 @@ public class QuanLySanPham {
                 return sp1.getTenSP().compareToIgnoreCase(sp2.getTenSP());
             }
         });
-        System.out.println("Da sap xep danh sach theo ten (A-Z)");
+        System.out.println("Da sap xep danh sach theo ten (A-Z). Chon chuc nang 2 de xem.");
     }
 }

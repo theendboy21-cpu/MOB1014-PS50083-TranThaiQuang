@@ -33,7 +33,7 @@ public class SanPham {
             if (Pattern.matches("^SP\\d{3}$", maSP)) {
                 break;
             }
-            System.out.println("Loi: Ma san pham phai có dang SPXXX (X là so). Vui lòng nhap lai!");
+            System.out.println("Loi: Ma san pham phai có dang SPXXX (X la so). Vui long nhap lai!");
         }
 
         System.out.print("Nhap ten san pham: ");
