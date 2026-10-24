@@ -125,6 +125,6 @@ public class QuanLySanPham {
                 return sp1.getTenSP().compareToIgnoreCase(sp2.getTenSP());
             }
         });
-        System.out.println("Đa sap xep danh sach theo ten (A-Z). Chon 2 de xem.");
+        System.out.println("Da sap xep danh sach theo ten (A-Z)");
     }
 }
